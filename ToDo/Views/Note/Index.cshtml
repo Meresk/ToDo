@@ -1,47 +1,40 @@
-﻿@model IEnumerable<ToDo.Models.Note_lw5_02>
-
+﻿@model List<ToDo.Models.Note_lw5_02>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ToDo";
 }
 
-<h1>Index</h1>
+<div class="container">
+    <h1 class="text-center mb-4">Система управления заметками ToDo</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <!-- Форма для добавления новой заметки -->
+    <form asp-action="Create" method="post" class="mb-4">
+        <div class="form-group">
+            <label for="Title">Заголовок заметки</label>
+            <input type="text" name="Title" class="form-control" placeholder="Введите заголовок заметки" required>
+        </div>
+        <div class="form-group">
+            <label for="Description">Описание заметки</label>
+            <textarea name="Description" class="form-control" placeholder="Введите описание заметки" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
+
+    <!-- Список заметок -->
+    <ul class="list-group">
+        @foreach (var note in Model)
+        {
+            <li class="list-group-item todo-item">
+                <div>
+                    <strong>@note.Title</strong><br>
+                    <small>@note.Description</small>
+                </div>
+                <form asp-action="Delete" asp-route-id="@note.Id" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                </form>
+                <form asp-action="Edit" asp-route-id="@note.Id" method="get" class="d-inline">
+                    <button type="submit" class="btn btn-success btn-sm">Обновить</button>
+                </form>
+            </li>
+        }
+    </ul>
+</div>
