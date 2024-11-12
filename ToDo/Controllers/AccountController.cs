@@ -109,7 +109,7 @@ namespace ToDo.Controllers
             //    Secure = false,   // Используйте только по HTTPS
             //    SameSite = SameSiteMode.Strict // Защита от CSRF
             //});
-            return Ok();
+            return Redirect("~/Note"); ;
         }
     }
 }
