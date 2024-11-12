@@ -13,6 +13,9 @@ namespace ToDo.Models
         [Required, StringLength(100)]
         public string Email { get; set; }
 
+        [Required, StringLength(255)]
+        public string Password { get; set; }
+
         public List<Note_lw5_02> Notes { get; set; } = new List<Note_lw5_02>();
     }
 }
