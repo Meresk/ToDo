@@ -13,6 +13,7 @@
  ```
  ## Использование
 Добавьте в appsettings.json свою строку подключения к бд
+
 Запуск проекта:
  ```bash
  dotnet ef database update
