@@ -4,12 +4,20 @@
     ViewData["Title"] = "Регистрация";
 }
 
+<style>
+        .animate-scale {
+        transition: transform 0.3s ease;
+
+        transform: scale(1.1);
+    }
+</style>
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
             <div class="text-center padd">
                 <h1 class="display-4 mb-4">Регистрация</h1>
-                <div class="card shadow-lg">
+                <div class="card shadow-lg animate__animated animate__fadeInUp">
                     <div class="card-header text-white bg-primary text-center">
                         <h5 class="mb-0">Создайте новую учетную запись</h5>
                     </div>
@@ -40,8 +48,8 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div>
-                <img src="~/Sources/Images/rem.jpg" alt="Login Banner" class="img-fluid mb-4" />
+            <div class="shadow-lg animate__animated animate__backInRight">
+                <img src="~/Sources/Images/rem.jpg" alt="Login Banner" class="img-fluid mb-6" id="clickableImage" />
             </div>
         </div>
     </div>
@@ -52,3 +60,12 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+<script>
+    document.getElementById('clickableImage').addEventListener('click', function() {
+        this.classList.add('animate-scale');
+        setTimeout(() => {
+            this.classList.remove('animate-scale');
+        }, 300); // Время должно совпадать с временем анимации в CSS
+    });
+</script>
