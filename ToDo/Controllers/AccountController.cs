@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using ToDo.Attributes;
 using ToDo.Data;
 using ToDo.Models;
 using ToDo.Services;
@@ -23,30 +24,6 @@ namespace ToDo.Controllers
             _context = context;
             _userService = userService;
             _tokenService = tokenService;
-        }
-
-        // GET: Account
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Users_lw9_02.ToListAsync());
-        }
-
-        // GET: Account/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var user_lw5_02 = await _context.Users_lw9_02
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user_lw5_02 == null)
-            {
-                return NotFound();
-            }
-
-            return View(user_lw5_02);
         }
 
         // GET: Account/Create
@@ -84,6 +61,7 @@ namespace ToDo.Controllers
         }
 
         [HttpPost]
+        [OnlyNotAuthorize]
         public async Task<IActionResult> Login([Bind("Email,Password")] User_lw9_02 user)
         {
 

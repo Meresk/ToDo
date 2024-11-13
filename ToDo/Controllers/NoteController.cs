@@ -35,25 +35,8 @@ namespace ToDo.Controllers
             return View(notes);
         }
 
-        // GET: Note/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var note_lw5_02 = await _context.Notes_lw9_02
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (note_lw5_02 == null)
-            {
-                return NotFound();
-            }
-
-            return View(note_lw5_02);
-        }
-
         // GET: Note/Create
+        [Authorize]
         public IActionResult Create()
         {
             return Redirect("~/Note");
@@ -64,6 +47,7 @@ namespace ToDo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Title,Description")] Note_lw9_02 note_lw9_02)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -85,6 +69,7 @@ namespace ToDo.Controllers
         }
 
         // GET: Note/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -103,6 +88,7 @@ namespace ToDo.Controllers
         // POST: Note/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,UserId")] Note_lw9_02 note_lw9_02)
@@ -136,6 +122,7 @@ namespace ToDo.Controllers
         }
 
         // GET: Note/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -156,6 +143,7 @@ namespace ToDo.Controllers
         // POST: Note/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var note_lw5_02 = await _context.Notes_lw9_02.FindAsync(id);
