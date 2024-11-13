@@ -8,9 +8,9 @@ namespace ToDo.Services
     {
         private readonly AppDbContext _dbContext = context;
 
-        public User_lw5_02? UserVerify(User_lw5_02 user)
+        public User_lw9_02? UserVerify(User_lw9_02 user)
         {
-            var userExist = _dbContext.Users_lw5_02.FirstOrDefault(u => u.Email == user.Email );
+            var userExist = _dbContext.Users_lw9_02.FirstOrDefault(u => u.Email == user.Email );
 
             if (userExist != null && BCrypt.Net.BCrypt.Verify(user.Password, userExist.Password))
             {

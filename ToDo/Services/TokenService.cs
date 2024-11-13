@@ -17,11 +17,12 @@ namespace ToDo.Services
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:Key"]));
         }
 
-        public string CreateToken(User_lw5_02 user)
+        public string CreateToken(User_lw9_02 user)
         {
             var claims = new List<Claim>
             {
-                new(JwtRegisteredClaimNames.Name , user.Email),
+                new(JwtRegisteredClaimNames.Email , user.Email),
+                // TODO: Надо добыть id пользоватля
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);

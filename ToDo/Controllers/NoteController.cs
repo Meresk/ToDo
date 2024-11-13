@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ToDo.Data;
 using ToDo.Models;
+using System.Security.Claims;
 
 namespace ToDo.Controllers
 {
@@ -24,7 +25,14 @@ namespace ToDo.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Notes_lw5_02.ToListAsync());
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var notes = await _context.Notes_lw9_02
+                .Where(note => note.UserId.ToString() == userId)
+                .ToListAsync();
+            Console.WriteLine($"Заметки: {string.Join(", ", notes.Select(n => n.Title))}");
+
+            return View(notes);
         }
 
         // GET: Note/Details/5
@@ -35,7 +43,7 @@ namespace ToDo.Controllers
                 return NotFound();
             }
 
-            var note_lw5_02 = await _context.Notes_lw5_02
+            var note_lw5_02 = await _context.Notes_lw9_02
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (note_lw5_02 == null)
             {
@@ -56,7 +64,7 @@ namespace ToDo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,UserId")] Note_lw5_02 note_lw5_02)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,UserId")] Note_lw9_02 note_lw5_02)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +83,7 @@ namespace ToDo.Controllers
                 return NotFound();
             }
 
-            var note_lw5_02 = await _context.Notes_lw5_02.FindAsync(id);
+            var note_lw5_02 = await _context.Notes_lw9_02.FindAsync(id);
             if (note_lw5_02 == null)
             {
                 return NotFound();
@@ -88,7 +96,7 @@ namespace ToDo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,UserId")] Note_lw5_02 note_lw5_02)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,UserId")] Note_lw9_02 note_lw5_02)
         {
             if (id != note_lw5_02.Id)
             {
@@ -126,7 +134,7 @@ namespace ToDo.Controllers
                 return NotFound();
             }
 
-            var note_lw5_02 = await _context.Notes_lw5_02
+            var note_lw5_02 = await _context.Notes_lw9_02
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (note_lw5_02 == null)
             {
@@ -141,10 +149,10 @@ namespace ToDo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var note_lw5_02 = await _context.Notes_lw5_02.FindAsync(id);
+            var note_lw5_02 = await _context.Notes_lw9_02.FindAsync(id);
             if (note_lw5_02 != null)
             {
-                _context.Notes_lw5_02.Remove(note_lw5_02);
+                _context.Notes_lw9_02.Remove(note_lw5_02);
             }
 
             await _context.SaveChangesAsync();
@@ -153,7 +161,7 @@ namespace ToDo.Controllers
 
         private bool Note_lw5_02Exists(int id)
         {
-            return _context.Notes_lw5_02.Any(e => e.Id == id);
+            return _context.Notes_lw9_02.Any(e => e.Id == id);
         }
     }
 }
