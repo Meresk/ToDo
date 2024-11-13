@@ -28,6 +28,9 @@ namespace ToDo.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("FilePatch")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
