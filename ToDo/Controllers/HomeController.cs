@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using ToDo.Attributes;
 using ToDo.Models;
 
 namespace ToDo.Controllers
@@ -13,6 +14,7 @@ namespace ToDo.Controllers
             _logger = logger;
         }
 
+        [OnlyNotAuthorize]
         public IActionResult Index()
         {
             return View();

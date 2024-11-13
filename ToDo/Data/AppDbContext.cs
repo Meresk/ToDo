@@ -10,7 +10,7 @@ namespace ToDo.Data
         {
         }
 
-        public DbSet<User_lw5_02> Users_lw5_02 { get; set; }
-        public DbSet<Note_lw5_02> Notes_lw5_02 { get; set; }
+        public DbSet<User_lw9_02> Users_lw9_02 { get; set; }
+        public DbSet<Note_lw9_02> Notes_lw9_02 { get; set; }
     }
 }
