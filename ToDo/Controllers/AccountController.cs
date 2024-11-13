@@ -92,12 +92,12 @@ namespace ToDo.Controllers
             if (userExist == null)
             {
                 TempData["ErrorMessage"] = "Неверный логин или пароль.";
-                return Redirect("~/"); ;
+                return Redirect("~/");
             }
 
             Response.Cookies.Append("A", _tokenService.CreateToken(userExist));
 
-            return Redirect("~/Note"); ;
+            return Redirect("~/Note");
         }
     }
 }

@@ -22,7 +22,8 @@ namespace ToDo.Services
             var claims = new List<Claim>
             {
                 new(JwtRegisteredClaimNames.Email , user.Email),
-                // TODO: Надо добыть id пользоватля
+                new(JwtRegisteredClaimNames.NameId, user.Id.ToString())
+                
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);

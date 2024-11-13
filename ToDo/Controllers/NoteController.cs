@@ -56,7 +56,7 @@ namespace ToDo.Controllers
         // GET: Note/Create
         public IActionResult Create()
         {
-            return View();
+            return Redirect("~/Note");
         }
 
         // POST: Note/Create
@@ -64,15 +64,24 @@ namespace ToDo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,UserId")] Note_lw9_02 note_lw5_02)
+        public async Task<IActionResult> Create([Bind("Title,Description")] Note_lw9_02 note_lw9_02)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var createNote = new Note_lw9_02
+            {
+                Title = note_lw9_02.Title,
+                Description = note_lw9_02.Description,
+                UserId = Int32.Parse(userId)
+            };
+
             if (ModelState.IsValid)
             {
-                _context.Add(note_lw5_02);
+                _context.Add(createNote);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(note_lw5_02);
+            return Redirect("~/Note");
         }
 
         // GET: Note/Edit/5
@@ -96,9 +105,9 @@ namespace ToDo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,UserId")] Note_lw9_02 note_lw5_02)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,UserId")] Note_lw9_02 note_lw9_02)
         {
-            if (id != note_lw5_02.Id)
+            if (id != note_lw9_02.Id)
             {
                 return NotFound();
             }
@@ -107,12 +116,12 @@ namespace ToDo.Controllers
             {
                 try
                 {
-                    _context.Update(note_lw5_02);
+                    _context.Update(note_lw9_02);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!Note_lw5_02Exists(note_lw5_02.Id))
+                    if (!Note_lw5_02Exists(note_lw9_02.Id))
                     {
                         return NotFound();
                     }
@@ -123,7 +132,7 @@ namespace ToDo.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(note_lw5_02);
+            return View(note_lw9_02);
         }
 
         // GET: Note/Delete/5

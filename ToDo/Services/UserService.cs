@@ -14,7 +14,7 @@ namespace ToDo.Services
 
             if (userExist != null && BCrypt.Net.BCrypt.Verify(user.Password, userExist.Password))
             {
-                return user;
+                return userExist;
             }
 
             return null;

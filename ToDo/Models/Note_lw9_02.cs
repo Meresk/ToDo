@@ -15,6 +15,6 @@ namespace ToDo.Models
         public int UserId { get; set; }
 
         // Навигационное свойство:
-        public User_lw9_02 User { get; set; } // Это свойство для отношения с моделью пользователя
+        public User_lw9_02? User { get; set; } // Это свойство для отношения с моделью пользователя
     }
 }
