@@ -99,5 +99,13 @@ namespace ToDo.Controllers
 
             return Redirect("~/Note");
         }
+
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("A");
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
