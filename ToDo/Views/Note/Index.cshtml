@@ -1,0 +1,66 @@
+﻿@model List<ToDo.Models.Note_lw9_02>
+@{
+    ViewData["Title"] = "ToDo";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Система управления заметками ToDo ✏️</h1>
+
+
+    <!-- Форма для добавления новой заметки -->
+    <form asp-action="Create" method="post" enctype="multipart/form-data" class="mb-4 shadow p-4 bg-light rounded">
+        <h3 class="text-center">Добавить новую заметку</h3>
+        <div class="form-group">
+            <label for="Title">Заголовок заметки</label>
+            <input type="text" name="Title" class="form-control" placeholder="Введите заголовок заметки" required>
+        </div>
+        <div class="form-group">
+            <label for="Description">Описание заметки</label>
+            <textarea name="Description" class="form-control" placeholder="Введите описание заметки" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="File">Прикрепить файл</label>
+            <input type="file" name="File" class="form-control-file">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 15px">Добавить</button>
+    </form>
+
+    <!-- Список заметок -->
+    <h3 class="text-center mb-4">Ваши заметки</h3>
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var note in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@note.Title</h5>
+                            <p class="card-text note-description">@note.Description</p>
+                            <div class="d-flex justify-content-between">
+                                @if (!string.IsNullOrEmpty(note.FilePatch))
+                                {
+                                    <a href="@note.FilePatch" class="btn btn-primary btn-sm" download>Скачать файл</a>
+                                }
+                                <form asp-action="Edit" asp-route-id="@note.Id" method="get" class="d-inline">
+                                    <button type="submit" class="btn btn-success btn-sm">Обновить</button>
+                                </form>
+                                <form asp-action="Delete" asp-route-id="@note.Id" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    <strong>У вас пока нет никаких заметок.</strong>
+                </div>
+            </div>
+        }
+    </div>
+</div>

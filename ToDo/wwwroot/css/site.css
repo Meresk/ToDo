@@ -20,3 +20,35 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Анимация для плавного появления элементов */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Анимация для кнопок */
+.btn-animated {
+    transition: transform 0.2s ease-in-out;
+}
+
+.btn-animated:hover {
+    transform: scale(1.05);
+}
+
+.note-description {
+    height: 100px; /* Максимальная высота для 5 строк */
+    overflow-y: auto; /* Добавляем вертикальный скролл, если контент превышает максимальную высоту */
+    padding-right: 10px; /* Добавляем отступ для скроллбара */
+}

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ToDo.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 <body>
     <header>
@@ -20,12 +21,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Политика о персональных данных</a>
                         </li>
                     </ul>
+                    <form asp-controller="Account" asp-action="Logout" method="post">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item" id="logoutItem" style="display: none;">
+                                <button type="submit" class="btn btn-danger">Выйти</button>
+                            </li>
+                        </ul>
+                    </form>
                 </div>
             </div>
         </nav>
@@ -44,6 +49,19 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        // Функция для проверки наличия cookie
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        // Проверяем наличие cookie "A"
+        if (getCookie('A')) {
+            document.getElementById('logoutItem').style.display = 'block'; // Показываем кнопку "Выйти"
+        }
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
